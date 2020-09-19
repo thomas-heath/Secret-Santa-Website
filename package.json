@@ -1,0 +1,14 @@
+{
+  "name": "secretsantawebsite",
+  "version": "1.0.0",
+  "description": "A website for choosing secret santas",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Thomas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

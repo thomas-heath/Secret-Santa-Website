@@ -4,6 +4,11 @@
 </head>
 <body>
   <h1>Secret Santa</h1>
-  <h2>Participants:</h2>
+  <script>
+    var queryString = window.location.search;
+    if ( queryString == "" ) {
+      document.body.innerHTML = document.body.innerHTML + "<h2>Add a participant!</h2>";
+    }
+  </script>
 </body>
 </html>

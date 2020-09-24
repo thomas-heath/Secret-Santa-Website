@@ -49,10 +49,54 @@ function cleanQueryString(queryString) {
   return nameList;
 }
 
-//function matchNames() {
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 
+function matchNames() {
 
-//}
+  const matchList = [];
+  shuffle(nameList);
+  const gifteeList = nameList;
+  var gifter;
+  var giftee;
+  var endGifter = nameList[nameCount - 1];
+
+  for (var i = 0; i < nameCount; i++) {
+
+    if (i == nameCount - 2 && gifteeList.includes(endGifter)) {
+
+        gifter = nameList[i];
+        giftee = endGifter;
+        gifteeList.splice(gifteeList.indexOf(giftee), 1);
+        matchList.push([gifter, giftee]);
+
+    } else {
+
+      gifter = nameList[i];
+
+      if (gifteeList.includes(gifter)) {
+
+          gifteeList.splice(gifteeList.indexOf(gifter));
+          giftee = gifteeList[getRandomInt(gifteeList.length - 1)];
+          gifteeList.push(gifter);
+          gifteeList.splice(gifteeList.indexOf(giftee));
+          matchList.push([gifter, giftee]);
+
+      } else if (gifteeList.length == 1) {
+
+          matchList.push([gifter, gifteeList[0]]);
+
+      } else {
+
+          giftee = gifteeList[getRandomInt(gifteeListlength - 1)];
+          gifteeList.splice(gifteeList.indexOf(giftee));
+          matchList.push([gifter, giftee]);
+
+      }
+    }
+  }
+}
 
 var queryString = window.location.search;
 if ( queryString == "" ) {

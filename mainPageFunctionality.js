@@ -1,5 +1,4 @@
 function ensureCorrectInput(inputText) {
-
   var legalCharacters = /^[A-Za-z ]+$/;
   var spaces = /^[ ]+$/;
 
@@ -17,24 +16,62 @@ function ensureCorrectInput(inputText) {
   return true;
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+function cleanQueryString(queryString) {
+  queryString = queryString.substring(1);
+  const dataArray = queryString.split("&");
+  const nameList = [];
+
+  for (i = 0; i < dataArray.length; i++) {
+    name = dataArray[i].split("=")[1];
+    name = name.split("+").join(" ");
+    nameList.push(name);
+  }
+
+  return nameList;
+}
+
+//function matchNames() {
+
+
+//}
+
 var queryString = window.location.search;
 if ( queryString == "" ) {
   document.body.innerHTML += "<h2>Add a participant!</h2>";
   document.body.innerHTML += '<form name="form1" accept-charset="ISO-8859-1"><input type="text" id="n1" name="n1"><input type="submit" value="Add" onclick="ensureCorrectInput(document.form1.n1)"></form>';
 } else {
-  queryString = queryString.substring(1);
-  var nameList = queryString.split("&");
+  const nameList = cleanQueryString(queryString);
   var nameCount = nameList.length;
   var previousDataForm = "";
 
   document.body.innerHTML += ("<h2>Participants: " + nameCount + "</h2>");
 
-  var i;
   var name;
-  for (i = 0; i < nameCount; i++) {
-    name = nameList[i].substring(3).split("+").join(" ");
-    document.body.innerHTML += ("<p" + (i + 1) + ">" + name + "</p" + (i + 1) + "><br>");
-    previousDataForm += ('<input type="hidden" name="n' + (i + 1) + '" value="'  + name + '">');
+  var nameIndex;
+  for (var i = 0; i < nameCount; i++) {
+    name = nameList[i];
+    nameIndex = i + 1;
+    document.body.innerHTML += ("<p" + nameIndex + ">" + name + "</p" + nameIndex + "><br>");
+    previousDataForm += ('<input type="hidden" name="n' + nameIndex + '" value="'  + name + '">');
   }
 
   document.body.innerHTML += ('<form name="form1" accept-charset="ISO-8859-1">' + previousDataForm + '<input type="text" id="n1" name="n' + (nameCount + 1) + '"><input type="submit" value="Add" onclick="ensureCorrectInput(document.form1.n' + (nameCount + 1) + ')"></form>');

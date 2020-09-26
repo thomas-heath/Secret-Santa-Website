@@ -1,13 +1,12 @@
 function displayInputError() {
 
-  var warningElement = document.getElementById("InputWarning");
-  var warningMessage = document.createTextNode("Only alphabet letters and spaces are allowed.");
-  var children = warningElement.childNodes;
+  if (input.value === "") {
 
-  for (var i = 0; i < children.length; i++) {
-    warningElement.removeChild(children[i]);
+    errorDisplay.setAttribute("hidden", "");
+  } else {
+
+    errorDisplay.removeAttribute("hidden");
   }
-  warningElement.appendChild(warningMessage);
 }
 
 function shuffle(array) { //Shuffles an array
@@ -94,6 +93,8 @@ function matchNames() { //Returns an array where the elements are arrays contain
 
 var errorDisplay = document.createElement("p");
 errorDisplay.setAttribute("id", "InputWarning");
+errorDisplay.setAttribute("hidden", "");
+errorDisplay.appendChild(document.createTextNode("Only alphabet letters and spaces are allowed."));
 errorDisplay.style.color = "#ff0000";
 
 var queryString = window.location.search;
@@ -106,24 +107,24 @@ if ( queryString == "" ) {
   var form1 = document.createElement("form");
   form1.setAttribute("name", "form1");
 
-  var n1Input = document.createElement("input");
-  n1Input.setAttribute("type", "text");
-  n1Input.setAttribute("id", "n1");
-  n1Input.setAttribute("name", "n1");
-  n1Input.setAttribute("required", "");
-  n1Input.setAttribute("pattern", "^[A-Za-z ]+$");
+  var input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("id", "n1");
+  input.setAttribute("name", "n1");
+  input.setAttribute("required", "");
+  input.setAttribute("pattern", "^[A-Za-z ]+$");
 
   var submitInput = document.createElement("input");
   submitInput.setAttribute("type", "submit");
   submitInput.setAttribute("value", "Add");
-  submitInput.setAttribute("onclick", "displayInputError()");
 
   //puts the elements into the document
   document.body.appendChild(h2);
-  form1.appendChild(n1Input);
+  form1.appendChild(input);
   form1.appendChild(submitInput);
   document.body.appendChild(form1);
   document.body.appendChild(errorDisplay);
+  n1Input.addEventListener("invalid", displayInputError);
 
 } else {
   const nameList = cleanQueryString(queryString);
@@ -177,7 +178,6 @@ if ( queryString == "" ) {
   var submitInput1 = document.createElement("input");
   submitInput1.setAttribute("type", "submit");
   submitInput1.setAttribute("value", "Add");
-  submitInput1.setAttribute("onclick", "displayInputError()");
 
   form1.appendChild(input);
   form1.appendChild(submitInput1);
@@ -191,6 +191,7 @@ if ( queryString == "" ) {
   document.body.appendChild(h2);
   document.body.appendChild(list);
   document.body.appendChild(form1);
+  input.addEventListener("invalid", displayInputError);
   document.body.appendChild(errorDisplay);
   document.body.appendChild(form2);
 }

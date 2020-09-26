@@ -124,7 +124,7 @@ if ( queryString == "" ) {
   form1.appendChild(submitInput);
   document.body.appendChild(form1);
   document.body.appendChild(errorDisplay);
-  n1Input.addEventListener("invalid", displayInputError);
+  input.addEventListener("invalid", displayInputError);
 
 } else {
   const nameList = cleanQueryString(queryString);

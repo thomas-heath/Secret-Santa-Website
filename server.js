@@ -5,4 +5,5 @@ const port = process.env.PORT || 9090;
 app.get("/", function(req, res){res.sendfile("./MainPage.html")});
 app.get("/MainPageFunctionality", function(req, res){res.sendfile("./MainPageFunctionality.js")});
 app.get("/MatchedSantas", function(req, res){res.sendfile("./SecondPage.html")});
+app.get("/Result", function(req, res){res.sendfile("./ResultsPage.html")});
 app.listen(port);

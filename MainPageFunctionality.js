@@ -75,7 +75,7 @@ function getRandomInt(max) { //returns a random int from 0 to max
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-function matchNames() { //Returns an array where the elements are arrays containing each name along with a randomly selected name 
+function matchNames() { //Returns an array where the elements are arrays containing each name along with a randomly selected name
 
   const matchList = [];
   shuffle(nameList);
@@ -141,4 +141,6 @@ if ( queryString == "" ) {
   }
 
   document.body.innerHTML += ('<form name="form1" accept-charset="ISO-8859-1">' + previousDataForm + '<input type="text" id="n1" name="n' + (nameCount + 1) + '"><input type="submit" value="Add" onclick="ensureCorrectInput(document.form1.n' + (nameCount + 1) + ')"></form>');
+
+  document.body.innerHTML += ('<form name="form2" action="MatchedSantas">' + previousDataForm + '<input type="submit" value="Go!"></form>');
 }

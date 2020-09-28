@@ -32,7 +32,7 @@ function displayNames() {
     button.setAttribute("value", replaceUnsafeCharacters(window.btoa("n1=" + name1 + "&n2=" + name2)));
     button.appendChild(document.createTextNode("Copy"));
     button.addEventListener("click", function (evt) {
-      navigator.clipboard.writeText(currentSite + "Result?" + this.value);
+      navigator.clipboard.writeText(currentSite + "/Result?" + this.value);
     });
 
     newLine = document.createElement("br");

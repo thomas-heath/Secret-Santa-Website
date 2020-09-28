@@ -12,7 +12,7 @@ function displayNames() {
   var newLine;
   var division = document.getElementById("div");
   var restart = document.getElementById("restart");
-  var currentSite = getCurrentSite("SecondPage.html");
+  var currentSite = getCurrentSite("/MatchedSantas");
   const nameList = names.split(",");
 
   restart.setAttribute("href", currentSite + "/");

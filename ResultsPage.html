@@ -1,11 +1,22 @@
 <html lang="en">
 <head>
   <title>Secret Santa</title>
+  <script type="text/javascript" src="SharedFunctions.js"></script>
 </head>
 <body>
     <h1>Secret Santa</h1>
-    <h2>Hello Name1!</h2>
-    <p1>Your Secret Santa is Name2.</p1><br>
+    <h2 id="h2"></h2>
+    <p id="p"></p><br>
     <a href="/">Restart</a>
+    <script type="text/javascript">
+      var queryString = cleanQueryString(window.location.search)[0];
+      queryString = window.atob(restoreUnsafeCharacters(queryString));
+      const pair = cleanQueryString(queryString);
+      var h2 = document.getElementById("h2");
+      var p = document.getElementById("p");
+
+      h2.appendChild(document.createTextNode("Congratulations " + pair[0] + "!"));
+      p.appendChild(document.createTextNode("Your Secret Santa is " + pair[1]));
+    </script>
 </body>
 </html>

@@ -1,11 +1,17 @@
 <html lang="en">
 <head>
   <title>Secret Santa</title>
+  <script type="text/javascript" src="SharedFunctions.js"></script>
+  <script type="text/javascript" src="SecondPageFunctionality.js"></script>
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <h1>Secret Santa</h1>
     <h2>Santas Selected!</h2>
     <p1>Press the 'Copy' button next to a participants name and paste it into a message to them. No Peeking!</p1><br>
-    <a href="/">Restart</a>
+    <div id="div"></div>
+    <a id="restart">Restart</a>
+    <script type="text/javascript">displayNames();</script>
+
 </body>
 </html>

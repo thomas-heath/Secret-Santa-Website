@@ -1,56 +1,31 @@
-function displayInputError() {
+function matchNames(nameList, nameCount) { //Returns an array where the elements are arrays containing each name along with a randomly selected name
 
-  if (input.value === "") {
-
-    errorDisplay.setAttribute("hidden", "");
-  } else {
-
-    errorDisplay.removeAttribute("hidden");
-  }
-}
-
-function shuffle(array) { //Shuffles an array
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
+  function getRandomInt(number) { //returns a random int from 0 to the number exluding the number
+    return Math.floor(Math.random() * number);
   }
 
-  return array;
-}
+  function shuffle(array) { //Shuffles an array
+    var currentIndex = array.length, temporaryValue, randomIndex;
 
-function cleanQueryString(queryString) { //Turns the queryString into an array, removes symbols and keys, then returns the array.
-  queryString = queryString.substring(1);
-  const dataArray = queryString.split("&");
-  const nameList = [];
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
 
-  for (i = 0; i < dataArray.length; i++) {
-    name = dataArray[i].split("=")[1];
-    name = name.split("+").join(" ");
-    nameList.push(name);
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
   }
-
-  return nameList;
-}
-
-function getRandomInt(max) { //returns a random int from 0 to max
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
-function matchNames() { //Returns an array where the elements are arrays containing each name along with a randomly selected name
 
   const matchList = [];
   shuffle(nameList);
-  const gifteeList = nameList;
+  const gifteeList = [...nameList];
   var gifter;
   var giftee;
   var endGifter = nameList[nameCount - 1];
@@ -70,128 +45,164 @@ function matchNames() { //Returns an array where the elements are arrays contain
 
       if (gifteeList.includes(gifter)) {
 
-          gifteeList.splice(gifteeList.indexOf(gifter));
-          giftee = gifteeList[getRandomInt(gifteeList.length - 1)];
+          gifteeList.splice(gifteeList.indexOf(gifter), 1);
+          giftee = gifteeList[getRandomInt(gifteeList.length)];
           gifteeList.push(gifter);
-          gifteeList.splice(gifteeList.indexOf(giftee));
+          gifteeList.splice(gifteeList.indexOf(giftee), 1);
           matchList.push([gifter, giftee]);
 
       } else if (gifteeList.length == 1) {
 
           matchList.push([gifter, gifteeList[0]]);
+          gifteeList.splice(0, 1);
 
       } else {
 
-          giftee = gifteeList[getRandomInt(gifteeListlength - 1)];
-          gifteeList.splice(gifteeList.indexOf(giftee));
+          giftee = gifteeList[getRandomInt(gifteeList.length)];
+          gifteeList.splice(gifteeList.indexOf(giftee), 1);
           matchList.push([gifter, giftee]);
-
       }
     }
   }
+  return matchList;
 }
 
-var errorDisplay = document.createElement("p");
-errorDisplay.setAttribute("id", "InputWarning");
-errorDisplay.setAttribute("hidden", "");
-errorDisplay.appendChild(document.createTextNode("Only alphabet letters and spaces are allowed."));
-errorDisplay.style.color = "#ff0000";
+function buildBody() {
 
-var queryString = window.location.search;
-if ( queryString == "" ) {
+  function displayInputError() {
 
-  //Builds all the elements
-  var h2 = document.createElement("h2");
-  h2.appendChild(document.createTextNode("Add a participant!"));
+    errorDisplay = document.getElementById("InputWarning");
 
-  var form1 = document.createElement("form");
-  form1.setAttribute("name", "form1");
+    if (input.value === "") {
 
-  var input = document.createElement("input");
-  input.setAttribute("type", "text");
-  input.setAttribute("id", "n1");
-  input.setAttribute("name", "n1");
-  input.setAttribute("required", "");
-  input.setAttribute("pattern", "^[A-Za-z ]+$");
+      errorDisplay.setAttribute("hidden", "");
+    } else {
 
-  var submitInput = document.createElement("input");
-  submitInput.setAttribute("type", "submit");
-  submitInput.setAttribute("value", "Add");
+      errorDisplay.removeAttribute("hidden");
+    }
+  }
 
-  //puts the elements into the document
-  document.body.appendChild(h2);
-  form1.appendChild(input);
-  form1.appendChild(submitInput);
-  document.body.appendChild(form1);
-  document.body.appendChild(errorDisplay);
-  input.addEventListener("invalid", displayInputError);
-
-} else {
+  var queryString = window.location.search;
   const nameList = cleanQueryString(queryString);
   var nameCount = nameList.length;
-  var hiddenInput1;
-  var name;
-  var nameIndex;
   var listItem;
+  var h2 = document.getElementById("h2");
+  var ul = document.getElementById("namelist");
+  var form1 = document.getElementById("form1");
+  var form2 = document.getElementById("form2");
 
-  var h2 = document.createElement("h2");
-  headerText = "Participants: " + nameCount;
-  h2.appendChild(document.createTextNode(headerText));
+  if ( queryString == "" ) { //checks for a querystring
 
-  var form1 = document.createElement("form");
-  form1.setAttribute("name", "form1");
+    h2.appendChild(document.createTextNode("Add a participant!"));
 
-  var form2 = document.createElement("form");
-  form2.setAttribute("name", "form2");
-  form2.setAttribute("action", "MatchedSantas");
+    var input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("id", "n1");
+    input.setAttribute("name", "n1");
+    input.setAttribute("required", "");
+    input.setAttribute("pattern", "^[A-Za-z ]+$");
 
-  var list = document.createElement("ul");
-  list.style.listStyle = "none";
+    var submitInput = document.createElement("input");
+    submitInput.setAttribute("type", "submit");
+    submitInput.setAttribute("value", "Add");
 
-  for (var i = 0; i < nameCount; i++) {
-    name = nameList[i];
-    nameIndex = i + 1;
+    form1.appendChild(input);
+    form1.appendChild(submitInput);
+    input.addEventListener("invalid", displayInputError);
+
+  } else if (nameList.length < 2) { //checks to see if there is only one name
+
+    var name = nameList[0];
+
+    headerText = "Participants: " + nameCount;
+    h2.appendChild(document.createTextNode(headerText));
 
     listItem = document.createElement("li");
     listItem.appendChild(document.createTextNode(name));
 
-    list.appendChild(listItem);
+    var form1 = document.getElementById("form1");
 
-    hiddenInput1 = document.createElement("input");
+    var hiddenInput1 = document.createElement("input");
     hiddenInput1.setAttribute("type", "hidden");
-    hiddenInput1.setAttribute("name", "n" + nameIndex);
+    hiddenInput1.setAttribute("name", "n1");
     hiddenInput1.setAttribute("value", name);
 
-    hiddenInput2 = hiddenInput1.cloneNode();
+    var input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("id", "n2");
+    input.setAttribute("name", "n2");
+    input.setAttribute("required", "");
+    input.setAttribute("pattern", "^[A-Za-z ]+$");
 
+    var submitInput = document.createElement("input");
+    submitInput.setAttribute("type", "submit");
+    submitInput.setAttribute("value", "Add");
+
+    //puts the elements into the document
+    ul.appendChild(listItem);
     form1.appendChild(hiddenInput1);
+    form1.appendChild(input);
+    form1.appendChild(submitInput);
+    input.addEventListener("invalid", displayInputError);
+
+  } else{
+
+    var hiddenInput1;
+    var name;
+    var nameIndex = 1;
+
+    headerText = "Participants: " + nameCount;
+    h2.appendChild(document.createTextNode(headerText));
+
+    form2.setAttribute("action", "MatchedSantas");
+
+    for (var i = 0; i < nameCount; i++) {
+      name = nameList[i];
+
+      listItem = document.createElement("li");
+      listItem.appendChild(document.createTextNode(name));
+
+      ul.appendChild(listItem);
+
+      hiddenInput1 = document.createElement("input");
+      hiddenInput1.setAttribute("type", "hidden");
+      hiddenInput1.setAttribute("name", "n" + nameIndex);
+      hiddenInput1.setAttribute("value", name);
+
+      form1.appendChild(hiddenInput1);
+
+      nameIndex++;
+    }
+
+    var input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("id", "n" + (nameCount + 1));
+    input.setAttribute("name", "n" + (nameCount + 1));
+    input.setAttribute("required", "");
+    input.setAttribute("pattern", "^[A-Za-z ]+$");
+
+    var submitInput1 = document.createElement("input");
+    submitInput1.setAttribute("type", "submit");
+    submitInput1.setAttribute("value", "Add");
+
+    form1.appendChild(input);
+    form1.appendChild(submitInput1);
+
+    var matches = matchNames(nameList, nameCount).toString();
+    var encodedMatches = window.btoa(matches);
+    encodedMatches = replaceUnsafeCharacters(encodedMatches);
+    var hiddenInput2 = document.createElement("input");
+    hiddenInput2.setAttribute("type", "hidden");
+    hiddenInput2.setAttribute("name", "matches");
+    hiddenInput2.setAttribute("value", encodedMatches);
+
+    var submitInput2 = document.createElement("input");
+    submitInput2.setAttribute("type", "submit");
+    submitInput2.setAttribute("value", "Go!");
+
     form2.appendChild(hiddenInput2);
+    form2.appendChild(submitInput2);
+
+    input.addEventListener("invalid", displayInputError);
   }
-
-  var input = document.createElement("input");
-  input.setAttribute("type", "text");
-  input.setAttribute("id", "n" + (nameCount + 1));
-  input.setAttribute("name", "n" + (nameCount + 1));
-  input.setAttribute("required", "");
-  input.setAttribute("pattern", "^[A-Za-z ]+$");
-
-  var submitInput1 = document.createElement("input");
-  submitInput1.setAttribute("type", "submit");
-  submitInput1.setAttribute("value", "Add");
-
-  form1.appendChild(input);
-  form1.appendChild(submitInput1);
-
-  var submitInput2 = document.createElement("input");
-  submitInput2.setAttribute("type", "submit");
-  submitInput2.setAttribute("value", "Go!");
-
-  form2.appendChild(submitInput2);
-
-  document.body.appendChild(h2);
-  document.body.appendChild(list);
-  document.body.appendChild(form1);
-  input.addEventListener("invalid", displayInputError);
-  document.body.appendChild(errorDisplay);
-  document.body.appendChild(form2);
 }

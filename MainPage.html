@@ -1,9 +1,18 @@
 <html lang="en">
 <head>
   <title>Secret Santa</title>
+  <script type="text/javascript" src="MainPageFunctionality.js"></script>
+  <script type="text/javascript" src="SharedFunctions.js"></script>
 </head>
 <body>
   <h1>Secret Santa</h1>
-  <script type="text/javascript" src="MainPageFunctionality"></script>
+  <h2 id="h2"></h2>
+  <ul id="namelist" style="list-style-type:none;"></ul>
+  <form id="form1"></form>
+  <p id="InputWarning" hidden="" style="color: rgb(255, 0, 0);">Only alphabet letters and spaces are allowed.</p>
+  <form id="form2"><form>
+  <script type="text/javascript">
+    buildBody();
+  </script>
 </body>
 </html>

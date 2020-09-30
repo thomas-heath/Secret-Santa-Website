@@ -82,6 +82,21 @@ function buildBody() {
     }
   }
 
+  function preventSpace(e) {
+
+    var inputLength = e.target.value.length;
+    var letters = /\w/;
+
+    if (!letters.test(e.target.value)) {
+
+      e.target.value = e.target.value.slice(0, -1);
+
+    } else if (e.target.value.charAt(inputLength - 1) == " " && e.target.value.charAt(inputLength - 2) == " ") {
+
+      e.target.value = e.target.value.slice(0, -1);
+    }
+  }
+
   var queryString = window.location.search;
   const nameList = cleanQueryString(queryString);
   var nameCount = nameList.length;
@@ -100,8 +115,9 @@ function buildBody() {
     input.setAttribute("id", "n1");
     input.setAttribute("name", "n1");
     input.setAttribute("required", "");
-    input.setAttribute("pattern", "^[A-Za-z ]+$");
-
+    input.setAttribute("pattern", "[A-Za-z ]+");
+    input.setAttribute("maxlength", "18");
+    input.oninput = preventSpace;
     var submitInput = document.createElement("input");
     submitInput.setAttribute("type", "submit");
     submitInput.setAttribute("value", "Add");
@@ -132,7 +148,9 @@ function buildBody() {
     input.setAttribute("id", "n2");
     input.setAttribute("name", "n2");
     input.setAttribute("required", "");
-    input.setAttribute("pattern", "^[A-Za-z ]+$");
+    input.setAttribute("maxlength", "18");
+    input.oninput = preventSpace;
+    input.setAttribute("pattern", "[A-Za-z ]+");
 
     var submitInput = document.createElement("input");
     submitInput.setAttribute("type", "submit");
@@ -179,7 +197,9 @@ function buildBody() {
     input.setAttribute("id", "n" + (nameCount + 1));
     input.setAttribute("name", "n" + (nameCount + 1));
     input.setAttribute("required", "");
-    input.setAttribute("pattern", "^[A-Za-z ]+$");
+    input.setAttribute("maxlength", "18");
+    input.oninput = preventSpace;
+    input.setAttribute("pattern", "[A-Za-z ]+");
 
     var submitInput1 = document.createElement("input");
     submitInput1.setAttribute("type", "submit");

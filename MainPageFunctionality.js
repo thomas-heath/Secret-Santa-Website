@@ -134,7 +134,6 @@ function buildBody() {
     h2.appendChild(document.createTextNode(headerText));
 
     listItem = document.createElement("li");
-    listItem.setAttribute("class", "text-center");
     listItem.appendChild(document.createTextNode(name));
 
     var form1 = document.getElementById("form1");
@@ -180,7 +179,6 @@ function buildBody() {
 
       listItem = document.createElement("li");
       listItem.appendChild(document.createTextNode(name));
-      listItem.setAttribute("class", "text-center");
 
       ul.appendChild(listItem);
 

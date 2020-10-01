@@ -4,30 +4,42 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Secret Santa</title>
+  <style>
+    html, body {
+      height: 100%;
+    }
+    .vertical-center {
+      margin: 0;
+      position: relative;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+  </style>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <script type="text/javascript" src="MainPageFunctionality.js"></script>
   <script type="text/javascript" src="SharedFunctions.js"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="container vertical-center">
     <div class="col">
       <div class="row-sm">
-        <h1 class="text-center">Secret Santa</h1>
+        <h1>Secret Santa</h1>
       </div>
       <div class="row-sm">
-        <h2 id="h2" class="text-center"></h2>
+        <h2 id="h2"></h2>
       </div>
       <div class="row-sm"
-        <ul id="namelist" style="list-style-type:none;" class="text-center"></ul>
+        <ul id="namelist" style="list-style-type:none;"></ul>
       </div>
       <div class="row-sm">
-        <form id="form1" class="text-center"></form>
+        <form id="form1"></form>
       </div>
       <div class="row-sm">
-        <p id="InputWarning" hidden="" style="color: rgb(255, 0, 0);" class="text-center">Only alphabet letters and spaces are allowed.</p>
+        <p id="InputWarning" hidden="" style="color: rgb(255, 0, 0);">Only alphabet letters and spaces are allowed.</p>
       </div>
       <div class="row-sm">
-        <form id="form2" class="text-center"><form>
+        <form id="form2"><form>
       </div>
     </div>
   </div>

@@ -22,6 +22,7 @@ function displayNames() {
     paragraph = document.createElement("p");
     paragraph.setAttribute("id", "p" + paraCount);
     paragraph.style.display = "inline-block";
+    paragraph.style.paddingRight = "1%";
     paragraph.appendChild(document.createTextNode(nameList[i]));
 
     name1 = nameList[i].replace(" ", "+");

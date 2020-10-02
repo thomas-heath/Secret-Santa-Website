@@ -17,6 +17,15 @@ function displayNames() {
 
   restart.setAttribute("href", currentSite + "/");
 
+  division.addEventListener("click", function (evt) {
+    const buttons = this.querySelectorAll("button");
+    var button;
+    for (var i = 0; i < buttons.length; i++) {
+      button = buttons.item(i);
+      button.innerHTML = "Copy";
+    }
+  }, true);
+
   for (var i = 0; i < nameList.length; i += 2) {
 
     paragraph = document.createElement("p");
@@ -34,6 +43,7 @@ function displayNames() {
     button.appendChild(document.createTextNode("Copy"));
     button.addEventListener("click", function (evt) {
       navigator.clipboard.writeText(currentSite + "/Result?" + this.value);
+      this.innerHTML = "Copied";
     });
 
     newLine = document.createElement("br");

@@ -2,7 +2,7 @@ const express = require("express");
 const app = new express;
 const port = process.env.PORT || 9090;
 
-res.set("Content-Security-Policy", "script-src 'sha256-TiQT/8XjWSgRBdzJ52KzmEE9xTRXi1IDz09PBCu8W7g='");
+res.set("Content-Security-Policy", "script-src 'sha256-gTfbez15CZAVoQ83OeaSVSseTjL3bRCxT70vZrg3I9I='");
 
 app.get("/", function(req, res){res.sendfile("./MainPage.html")});
 app.get("/MatchedSantas", function(req, res){res.sendfile("./SecondPage.html")});

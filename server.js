@@ -3,7 +3,7 @@ const app = new express;
 const port = process.env.PORT || 9090;
 
 app.get("/", function(req, res){
-    res.append("Content-Security-Policy-Report-Only", "script-src 'sha256-UEWb9wSc0aelVA3YxejBWasmY40Pj1GevNIxqbC+lQY='")
+    res.append("Content-Security-Policy-Report-Only", "script-src 'sha256-BnzQoCGA5qE2VVPCieW3fNrC3ISn6qQkgODQCfVepC0='")
     res.sendfile("./MainPage.html")});
 app.get("/MatchedSantas", function(req, res){res.sendfile("./SecondPage.html")});
 app.get("/Result", function(req, res){res.sendfile("./ResultsPage.html")});

@@ -6,7 +6,6 @@ app.get("/", function(req, res){
     res.append("Content-Security-Policy-Report-Only", "script-src 'sha256-BnzQoCGA5qE2VVPCieW3fNrC3ISn6qQkgODQCfVepC0=' 'sha256-BezQoCGA5qE2VVPCieW3fNrC3ISn6qQkgODQCfVepC0=' 'sha256-BazQoCGA5qE2VVPCieW3fNrC3ISn6qQkgODQCfVepC0='")
     res.append("Content-Security-Policy-Report-Only", "sandbox")
     res.append("Content-Security-Policy-Report-Only", "require-sri-for script style")
-    res.append("Content-Security-Policy", "default-src 'self'")
     res.sendfile("./MainPage.html")});
 app.get("/MatchedSantas", function(req, res){res.sendfile("./SecondPage.html")});
 app.get("/Result", function(req, res){res.sendfile("./ResultsPage.html")});
